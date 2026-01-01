@@ -4,14 +4,15 @@ import {ApiResponse}  from '../utils/ApiResponse.js'
 import { ApiError } from '../utils/ApiError.js';
 import { Todo } from '../models/Todo.model.js';
  const getTodos=asyncHandler(async(req,res,next)=>{
-       const todos=await Todo.find();
+       const todos=await Todo.find({user: req.user._id});
        return res.status(200).json(new ApiResponse(200,todos,"Successful"))
 })
 
 
 const addTodo=asyncHandler(async(req,res,next)=>{
+  console.log("REQ.USER:", req.user);
     const {title,description,priority,dueDate,completed}=req.body
-
+    
     if (
         [title,priority,completed].some((field) => field?.trim() === "")
     ) {
@@ -19,13 +20,13 @@ const addTodo=asyncHandler(async(req,res,next)=>{
     }
 
     const todo=await Todo.create({
-      title,description,priority,dueDate,completed:false
+      title,description,priority,dueDate,completed:false,user: req.user._id,
     })
     res.status(200).json(new ApiResponse(200,todo,"Todo created successfully"))
 })
 
 const deleteTodo=asyncHandler(async(req,res,next)=>{
-     const deleted=await Todo.deleteOne({_id:req.params.id})
+     const deleted=await Todo.deleteOne({_id:req.params.id,user: req.user._id})
      
   if (deleted.deletedCount === 0) {
     return res.status(404).json(

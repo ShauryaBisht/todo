@@ -15,13 +15,27 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
+import { signIn } from "../services/Todoservices"
+import { redirect } from "react-router-dom"
 
 export function SignupForm({ className, ...props }) {
 
   const [username,setUsername]=useState("")
   const [email,setEmail]=useState("")
   const [password,setPassword]=useState("")
-  const [confirmPassword,setConfirmPassword]=useState("")
+
+const handleSubmit=async(e)=>{
+  e.preventDefault()
+   try {
+    const res = await signIn({ username, email, password });
+    console.log("Signup success:", res);
+    redirect('/login')
+  } catch (err) {
+    console.error(
+      "Signup failed:",err.message);
+  }
+}
+
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -59,13 +73,6 @@ export function SignupForm({ className, ...props }) {
                     <FieldLabel htmlFor="password">Password</FieldLabel>
                     <Input id="password" type="password" required value={password} onChange={(e)=>setPassword(e.target.value)}/>
                   </Field>
-
-                  <Field>
-                    <FieldLabel htmlFor="confirm-password">
-                      Confirm Password
-                    </FieldLabel>
-                    <Input id="confirm-password" type="password" required value={confirmPassword} onChange={(e)=>setConfirmPassword(e.target.value)}/>
-                  </Field>
                 </Field>
 
                 <FieldDescription>
@@ -74,7 +81,7 @@ export function SignupForm({ className, ...props }) {
               </Field>
 
               <Field>
-                <Button type="submit">Create Account</Button>
+                <Button type="submit" onClick={(e)=>handleSubmit(e)}>Create Account</Button>
                 <FieldDescription className="text-center">
                   Already have an account? <a href="/login">Log in</a>
                 </FieldDescription>

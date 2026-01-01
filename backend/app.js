@@ -5,19 +5,23 @@ import {connectDB} from './db/db.js';
 import todoRouter from './routes/Todo.router.js';
 import cookieParser from "cookie-parser";
 import authRouter from './routes/Auth.router.js';
-const PORT=process.env.PORT|| 3005;
+
 
 dotenv.config({path:'./.env'})
 const app=express();
+const PORT=process.env.PORT|| 3005;
 app.use(cookieParser());
 app.use(express.json())
-app.use(express.urlencoded())
-app.use(cors())
+app.use(express.urlencoded({extended:true}))
+app.use(cors({
+  origin:process.env.CORS_ORIGIN,
+  credentials:true
+}))
 
 
-
-app.use('/api',todoRouter)
 app.use('/api',authRouter)
+app.use('/api',todoRouter)
+
 
 connectDB()
 .then(

@@ -4,7 +4,7 @@ const API_URL = 'http://localhost:3004/api'
 
 export const getTodos = async () => {
   try {
-    const response = await axios.get(`${API_URL}/`);
+    const response = await axios.get(`${API_URL}/`, { withCredentials: true });
     return response.data;
   } catch (error) {
     console.error("Failed to fetch todos", error);
@@ -14,7 +14,7 @@ export const getTodos = async () => {
 
 export const addTodo = async (todo) => {
   try {
-    const response = await axios.post(`${API_URL}/add`, todo);
+    const response = await axios.post(`${API_URL}/add`, todo, { withCredentials: true });
     return response.data;
   } catch (error) {
     console.error("Failed to add todo", error);
@@ -24,14 +24,36 @@ export const addTodo = async (todo) => {
 
 
 export const deleteTodo = async (id) => {
-  const response = await axios.delete(`${API_URL}/${id}`);
+  const response = await axios.delete(`${API_URL}/${id}`, { withCredentials: true });
   return response.data;
 };
 
 
 export const toggleComplete = async (id) => {
-  const response = await axios.patch(`${API_URL}/toggle/${id}`);
+  const response = await axios.patch(`${API_URL}/toggle/${id}`,{}, { withCredentials: true });
   return response.data;
 };
 
+export const signIn = async ({ username, email, password }) => {
+  const response = await axios.post(
+    `${API_URL}/signin`,
+    { username, email, password },
+    {
+      withCredentials: true,
+    }
+  );
 
+  return response.data;
+};
+
+export const logIn = async ({ email, password }) => {
+  const response = await axios.post(
+    `${API_URL}/login`,
+    { email, password },
+    {
+      withCredentials: true, 
+    }
+  );
+
+  return response.data;
+};

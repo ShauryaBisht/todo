@@ -17,9 +17,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { getTodos,addTodo,deleteTodo,toggleComplete} from "../services/Todoservices";
-import { set } from "date-fns";
+import { useAuth } from "../context/AuthContext";
+import { Navigate } from "react-router-dom";
 
 function Todos() {
+  const {user}=useAuth();
   const [open, setOpen] = useState(false);
   const [dueDate,setDueDate]=useState(null);
   const [priority, setPriority] = useState("");
@@ -30,7 +32,7 @@ function Todos() {
 
 
   
-  
+  if (!user) return <Navigate to="/login" />;
 useEffect(() => {
     const fetchTodos = async () => {
       try {
@@ -98,15 +100,15 @@ const handleComplete = async (id) => {
   return (
     <div>
       <h1 className="font-bold text-4xl mt-4 p-4 text-center">
-        Welcome JOD!
+        Welcome {user.username || "Guest"}!
       </h1>
 
-      {/* Add Todo Button */}
+      
       <div className="flex justify-center">
         <Button onClick={() => setOpen(true)}>Add Todo +</Button>
       </div>
 
-      {/* ✅ MODAL */}
+    
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>

@@ -4,13 +4,29 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react"
+import { logIn } from "../services/Todoservices"
+import { useNavigate } from "react-router-dom"
+import { useAuth } from "../context/AuthContext"
 export function LoginForm({
   className,
   ...props
-}) {
-   const handleLogin=(e)=>{
+}) 
+  
+{
+ ;
+ const {setUser}=useAuth();
+ const navigate = useNavigate();
+   const handleLogin=async (e)=>{
     e.preventDefault();
-    
+    try {
+        const res = await logIn({ email, password });
+        console.log("Login success:", res);
+          setUser(res.data.user);
+        navigate('/')
+      } catch (err) {
+        console.error(
+          "Login failed:",err.message);
+      }
    }
   const [password,setPassword]=useState("")
   const [email,setEmail]=useState("")
