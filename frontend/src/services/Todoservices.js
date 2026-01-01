@@ -57,3 +57,8 @@ export const logIn = async ({ email, password }) => {
 
   return response.data;
 };
+
+export const logOut=async()=>{
+  const response=await axios.post(`${API_URL}/logout`,{},{withCredentials:true} )
+  return response.data;
+}
