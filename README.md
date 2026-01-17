@@ -36,7 +36,7 @@ It allows users to manage their todos with authentication and full CRUD operatio
 
 ---
 
-## 📂 Folder Structure
+
 ## ⚙️ Environment Variables
 
 Create a `.env` file inside the **backend** folder:
