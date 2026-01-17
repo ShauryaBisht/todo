@@ -37,4 +37,12 @@ It allows users to manage their todos with authentication and full CRUD operatio
 ---
 
 ## 📂 Folder Structure
+## ⚙️ Environment Variables
 
+Create a `.env` file inside the **backend** folder:
+
+### `backend/.env`
+```env
+PORT=8000
+MONGO_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/todo_app?appName=yourApp
+JWT_SECRET=your_jwt_secret
