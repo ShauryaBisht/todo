@@ -1,22 +1,22 @@
-# ✅ Full Stack Todo App
+#  Full Stack Todo App
 
 A simple **Full Stack Todo Application** built using **React + Node.js + Express + MongoDB**.  
 It allows users to manage their todos with authentication and full CRUD operations.
 
 ---
 
-## 🚀 Features
+##  Features
 
-- 🔐 User Authentication (Register / Login / Logout)
-- ✅ Add new Todos
-- ✏️ Edit/Update Todos
-- 🗑️ Delete Todos
-- ☑️ Mark todo as Completed / Pending
-- 👤 User-specific todos (each user only sees their own todos)
+-  User Authentication (Register / Login / Logout)
+-  Add new Todos
+-  Edit/Update Todos
+-  Delete Todos
+-  Mark todo as Completed / Pending
+-  User-specific todos (each user only sees their own todos)
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - React
@@ -37,7 +37,7 @@ It allows users to manage their todos with authentication and full CRUD operatio
 ---
 
 
-## ⚙️ Environment Variables
+## Environment Variables
 
 Create a `.env` file inside the **backend** folder:
 
